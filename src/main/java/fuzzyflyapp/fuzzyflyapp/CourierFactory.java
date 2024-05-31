@@ -13,7 +13,7 @@ class CourierFactory {
         return new Courier[] {
             new Jnt(),
             new NinjaVan(),
-            new Poslaju()
+            new Poslaju(),
         };
     }
 }
