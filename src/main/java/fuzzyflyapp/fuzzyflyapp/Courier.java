@@ -8,7 +8,7 @@ package fuzzyflyapp.fuzzyflyapp;
  *
  * @author Swift 3
  */
-public abstract class Courier {
+abstract class Courier {
     private String name;
     private double fixedRate;
 
@@ -23,6 +23,24 @@ public abstract class Courier {
 
     public double getFixedRate() {
         return fixedRate;
+    }
+}
+
+class Jnt extends Courier {
+    public Jnt() {
+        super("Jnt", 2.0);
+    }
+}
+
+class NinjaVan extends Courier {
+    public NinjaVan() {
+        super("NinjaVan", 3.0);
+    }
+}
+
+class Poslaju extends Courier {
+    public Poslaju() {
+        super("Poslaju", 1.5);
     }
 }
 

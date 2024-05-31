@@ -8,7 +8,7 @@ package fuzzyflyapp.fuzzyflyapp;
  *
  * @author Swift 3
  */
-public class CourierFactory {
+class CourierFactory {
     public static Courier[] getCouriers() {
         return new Courier[] {
             new Jnt(),
