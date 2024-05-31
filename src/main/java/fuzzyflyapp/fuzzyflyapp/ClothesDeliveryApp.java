@@ -12,6 +12,6 @@ import java.util.Scanner;
 
 public class ClothesDeliveryApp {
     public static void start(Scanner scanner) {
-        DeliveryApp.run(scanner, "Clothes Delivery System");
+        DeliveryApp.run(scanner, "hehehe");
     }
 }
