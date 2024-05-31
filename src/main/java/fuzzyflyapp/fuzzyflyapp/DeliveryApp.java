@@ -23,10 +23,12 @@ public class DeliveryApp {
         // Loop to handle multiple deliveries
         for (int i = 0; i < 3; i++) {
             System.out.println("\nDelivery " + (i + 1) + ":");
-
+            
+            //PELERPELRPELRP
+            
             // Input Handling - Customer Information
             customers[i] = new Customer();
-            System.out.print("Enter your name: ");
+            System.out.print("Enter your Name: ");
             customers[i].setName(scanner.nextLine());
             System.out.print("Enter your phone number: ");
             customers[i].setPhoneNumber(scanner.nextLine());
