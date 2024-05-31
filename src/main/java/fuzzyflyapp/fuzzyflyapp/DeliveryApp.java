@@ -24,7 +24,7 @@ public class DeliveryApp {
         for (int i = 0; i < 3; i++) {
             System.out.println("\nDelivery " + (i + 1) + ":");
             
-            //PELERPELRPELRP
+           
             
             // Input Handling - Customer Information
             customers[i] = new Customer();
