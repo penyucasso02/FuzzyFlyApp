@@ -8,21 +8,8 @@ package fuzzyflyapp.fuzzyflyapp;
  *
  * @author User
  */
-public abstract class ElectronicParcel {
-    protected String parcelID;
-    protected String senderName;
-    protected String senderAddress;
-    protected String senderContact;
-    protected String receiverName;
-    protected String receiverAddress;
-    protected String receiverContact;
-    protected double weight;
-    protected String dimensions;
-    protected String contentDescription;
-    protected double value;
-    protected String deliveryType;
-
-    public abstract void displayDetails();
+public interface ElectronicParcel {
+    void execute();
 }
 
 

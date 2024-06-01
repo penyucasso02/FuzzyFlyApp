@@ -9,27 +9,30 @@ package fuzzyflyapp.fuzzyflyapp;
  * @author User
  */
 import java.util.ArrayList;
+import java.util.List;
 
-class ElectronicSort {
-    private ElectronicDetail[] parcels;
+public class ElectronicSort implements ElectronicParcel {
+    private List<ElectronicDetail> parcels;
 
-    public ElectronicSort(ElectronicDetail[] parcels) {
-        this.parcels = parcels;
+    public ElectronicSort() {
+        parcels = new ArrayList<>();
     }
 
-    public ArrayList<ElectronicDetail> sortParcels() {
-        ArrayList<ElectronicDetail> domestic = new ArrayList<>();
-        ArrayList<ElectronicDetail> international = new ArrayList<>();
+    public void addParcel(ElectronicDetail parcel) {
+        parcel.setStatus("Sorting");
+        parcels.add(parcel);
+    }
 
-        for (ElectronicDetail parcel : parcels) {
-            if ("Domestic".equalsIgnoreCase(parcel.deliveryType)) {
-                domestic.add(parcel);
-            } else if ("International".equalsIgnoreCase(parcel.deliveryType)) {
-                international.add(parcel);
-            }
-        }
+    public void sortParcels() {
+        parcels.sort((p1, p2) -> p1.categorizeParcel().compareTo(p2.categorizeParcel()));
+    }
 
-        domestic.addAll(international); // Combined list with Domestic parcels first
-        return domestic;
+    public List<ElectronicDetail> getParcels() {
+        return parcels;
+    }
+
+    @Override
+    public void execute() {
+        sortParcels();
     }
 }

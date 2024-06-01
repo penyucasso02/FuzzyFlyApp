@@ -8,23 +8,48 @@ package fuzzyflyapp.fuzzyflyapp;
  *
  * @author User
  */
-import java.util.ArrayList;
+import java.util.List;
 
-public class ElectronicAssign {
-    private ArrayList<ElectronicDetail> sortedParcels;
+public class ElectronicAssign implements ElectronicParcel {
+    private List<ElectronicDetail> parcels;
 
-    public ElectronicAssign(ArrayList<ElectronicDetail> sortedParcels) {
-        this.sortedParcels = sortedParcels;
+    public ElectronicAssign(List<ElectronicDetail> parcels) {
+        this.parcels = parcels;
     }
 
     public void assignDelivery() {
-        for (ElectronicDetail parcel : sortedParcels) {
-            if ("Domestic".equalsIgnoreCase(parcel.deliveryType)) {
-                System.out.println("Parcel ID: " + parcel.parcelID + " assigned to Lorry.");
-            } else if ("International".equalsIgnoreCase(parcel.deliveryType)) {
-                System.out.println("Parcel ID: " + parcel.parcelID + " assigned to Ship.");
+        for (ElectronicDetail parcel : parcels) {
+            if (parcel.getDeliveryType().equalsIgnoreCase("international")) {
+                System.out.println("Assigning to shipping for international delivery.");
+                parcel.setStatus("Delivering (International)");
+            } else {
+                String category = parcel.categorizeParcel();
+                switch (category) {
+                    case "Small":
+                        System.out.println("Assigning to runner for domestic delivery.");
+                        parcel.setStatus("Delivering (Runner)");
+                        break;
+                    case "Medium":
+                        System.out.println("Assigning to lorry for domestic delivery.");
+                        parcel.setStatus("Delivering (Lorry)");
+                        break;
+                    case "Large":
+                        System.out.println("Assigning to cargo for domestic delivery.");
+                        parcel.setStatus("Delivering (Cargo)");
+                        break;
+                    default:
+                        System.out.println("Invalid parcel category.");
+                        parcel.setStatus("Error");
+                        break;
+                }
             }
         }
     }
+
+    @Override
+    public void execute() {
+        assignDelivery();
+    }
 }
+
 

@@ -9,74 +9,59 @@ package fuzzyflyapp.fuzzyflyapp;
  * @author Swift 3
  */
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class ElectronicsDeliveryApp {
     public static void start(Scanner scanner) {
-        // Example array of ElectronicDetail
-        ElectronicDetail[] parcels = new ElectronicDetail[2];
+        ElectronicSort sorter = new ElectronicSort();
 
-        // Input parcel details
-        for (int i = 0; i < parcels.length; i++) {
-            System.out.println("Enter details for Parcel " + (i + 1));
-
-            System.out.print("Parcel ID: ");
-            String parcelID = scanner.nextLine();
-
-            System.out.print("Sender Name: ");
-            String senderName = scanner.nextLine();
-
-            System.out.print("Sender Address: ");
-            String senderAddress = scanner.nextLine();
-
-            System.out.print("Sender Contact: ");
-            String senderContact = scanner.nextLine();
-
-            System.out.print("Receiver Name: ");
-            String receiverName = scanner.nextLine();
-
-            System.out.print("Receiver Address: ");
-            String receiverAddress = scanner.nextLine();
-
-            System.out.print("Receiver Contact: ");
-            String receiverContact = scanner.nextLine();
-
-            System.out.print("Weight: ");
-            double weight = scanner.nextDouble();
-            scanner.nextLine(); // consume newline
-
-            System.out.print("Dimensions: ");
-            String dimensions = scanner.nextLine();
-
-            System.out.print("Content Description: ");
-            String contentDescription = scanner.nextLine();
-
-            System.out.print("Value: ");
-            double value = scanner.nextDouble();
-            scanner.nextLine(); // consume newline
-
-            System.out.print("Delivery Type (Domestic/International): ");
-            String deliveryType = scanner.nextLine();
-
-            parcels[i] = new ElectronicDetail(parcelID, senderName, senderAddress, senderContact, receiverName, receiverAddress,
-                                              receiverContact, weight, dimensions, contentDescription, value, deliveryType);
-        }
-
-        // Sort parcels
-        ElectronicSort sorter = new ElectronicSort(parcels);
-        ArrayList<ElectronicDetail> sortedParcels = sorter.sortParcels();
-
-        // Assign delivery
-        ElectronicAssign assigner = new ElectronicAssign(sortedParcels);
-        assigner.assignDelivery();
-
-        // Track parcels
-        ElectronicTrack[] trackers = new ElectronicTrack[parcels.length];
-        for (int i = 0; i < parcels.length; i++) {
-            trackers[i] = new ElectronicTrack(parcels[i].parcelID);
-            trackers[i].trackParcel();
-            trackers[i].updateTrackingInfo("In Transit");
-            trackers[i].trackParcel();
+        OUTER:
+        while (true) {
+            System.out.println("Select an option:");
+            System.out.println("1. Add Parcel");
+            System.out.println("2. Admin Panel");
+            System.out.println("3. Exit");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1 -> {
+                    // Ask for parcel details first
+                    System.out.print("Enter parcel weight (kg): ");
+                    double weight = scanner.nextDouble();
+                    System.out.print("Enter parcel width (m): ");
+                    double width = scanner.nextDouble();
+                    System.out.print("Enter parcel height (m): ");
+                    double height = scanner.nextDouble();
+                    System.out.print("Enter parcel length (m): ");
+                    double length = scanner.nextDouble();
+                    scanner.nextLine();  // Consume newline
+                    System.out.print("Enter delivery type (domestic/international): ");
+                    String deliveryType = scanner.nextLine();
+                    // Create sender details
+                    ElectronicSender sender = new ElectronicSender(weight, width, height, length, deliveryType);
+                    sender.inputDetails();
+                    // Create receiver details
+                    ElectronicReceiver receiver = new ElectronicReceiver(weight, width, height, length, deliveryType);
+                    receiver.inputDetails();
+                    // Add parcels to sorter
+                    sorter.addParcel(sender);
+                    sorter.addParcel(receiver);
+                    // Sort parcels
+                    sorter.execute();
+                }
+                case 2 -> {
+                    // Assign delivery
+                    ElectronicAssign assigner = new ElectronicAssign(sorter.getParcels());
+                    assigner.execute();
+                    // Track parcels
+                    ElectronicTrack tracker = new ElectronicTrack(sorter.getParcels());
+                    tracker.execute();
+                }
+                case 3 -> {
+                    System.out.println("Exiting...");
+                    break OUTER;
+                }
+                default -> System.out.println("Invalid option. Please try again.");
+            }
         }
     }
 }
