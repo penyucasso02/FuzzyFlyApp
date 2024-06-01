@@ -12,6 +12,6 @@ import java.util.Scanner;
 
 public class FurnitureDeliveryApp {
     public static void start(Scanner scanner) {
-        DeliveryApp.run(scanner, "Furniture Delivery System");
+        System.out.println("sami");;
     }
 }

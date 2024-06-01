@@ -82,9 +82,9 @@ public abstract class ElectronicDetail {
 
     public String categorizeParcel() {
         double volume = this.width * this.height * this.length;
-        if (volume < 1 && this.weight < 5) {
+        if (volume < 0.1 && this.weight < 5) { // Adjusted threshold for small category
             return "Small";
-        } else if (volume >= 1 && volume <= 5 && this.weight >= 5 && this.weight <= 20) {
+        } else if (volume >= 0.1 && volume <= 1 && this.weight >= 5 && this.weight <= 20) { // Adjusted threshold for medium category
             return "Medium";
         } else {
             return "Large";

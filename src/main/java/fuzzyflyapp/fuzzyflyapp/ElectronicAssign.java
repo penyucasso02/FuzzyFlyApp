@@ -11,15 +11,15 @@ package fuzzyflyapp.fuzzyflyapp;
 import java.util.List;
 
 public class ElectronicAssign implements ElectronicParcel {
-    private List<ElectronicDetail> parcels;
+    private List<ElectronicParcelID> parcels;
 
-    public ElectronicAssign(List<ElectronicDetail> parcels) {
+    public ElectronicAssign(List<ElectronicParcelID> parcels) {
         this.parcels = parcels;
     }
 
     public void assignDelivery() {
-        for (ElectronicDetail parcel : parcels) {
-            if (parcel.getDeliveryType().equalsIgnoreCase("international")) {
+        for (ElectronicParcelID parcel : parcels) {
+            if (parcel.getSender().getDeliveryType().equalsIgnoreCase("international")) {
                 System.out.println("Assigning to shipping for international delivery.");
                 parcel.setStatus("Delivering (International)");
             } else {
@@ -51,5 +51,3 @@ public class ElectronicAssign implements ElectronicParcel {
         assignDelivery();
     }
 }
-
-
